@@ -1,0 +1,6 @@
+1. Wrong initialization of enrollStudentCount (Course.java line 26)
+2. enrollStudent method is implemented incorrectly (Course.java line 36)
+3. dropStudent method is implemented incorrectly (Course.java line 45)
+4. getCourseLocation method is implemented incorrectly (Course.java line 56)
+5. getInstructorName method is implemented incorrectly (Course.java line 61)
+6. isCourseFull method is implemented incorrectly (Course.java line 97)
