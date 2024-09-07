@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration
 public class CourseUnitTests {
 
-  /** Constant for course capacity. */
+  /** Constant for course. */
   private static final int COURSE_CAPACITY = 250;
   private static final String INSTRUCTOR_NAME = "Griffin Newbold";
   private static final String LOCATION = "417 IAB";
