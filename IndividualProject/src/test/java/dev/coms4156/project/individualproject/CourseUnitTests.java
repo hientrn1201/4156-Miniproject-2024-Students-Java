@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,10 +25,9 @@ public class CourseUnitTests {
   /**
    * Sets up a test course instance before all tests.
    */
-  @BeforeAll
-  public static void setupCourseForTesting() {
+  @BeforeEach
+  public void setupCourseForTesting() {
     testCourse = new Course(INSTRUCTOR_NAME, LOCATION, TIME_SLOT, COURSE_CAPACITY);
-    testCourse1 = new Course(INSTRUCTOR_NAME, LOCATION, TIME_SLOT, COURSE_CAPACITY);
   }
 
   /**
@@ -38,7 +37,7 @@ public class CourseUnitTests {
   public void toStringTest() {
     String expectedResult = "\nInstructor: " + INSTRUCTOR_NAME + "; Location: " + LOCATION
         + "; Time: " + TIME_SLOT;
-    assertEquals(expectedResult, testCourse1.toString());
+    assertEquals(expectedResult, testCourse.toString());
   }
 
   /**
@@ -118,6 +117,5 @@ public class CourseUnitTests {
 
   /** The test course instance used for testing. */
   public static Course testCourse;
-  public static Course testCourse1;
 }
 
