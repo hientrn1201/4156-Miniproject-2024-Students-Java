@@ -1,0 +1,21 @@
+1. Wrong initialization of enrollStudentCount -- currently init at 500, should be 0 (Course.java line 26)
+2. enrollStudent method does not handle logic when course is full (Course.java line 36)
+3. dropStudent method  does not handle logic when course is empty (Course.java line 45)
+4. getCourseLocation method returns the wrong attribute (Course.java line 56)
+5. getInstructorName method returns the wrong attribute (Course.java line 61)
+6. isCourseFull method evaluates incorrectly (Course.java line 97)
+7. getNumberOfMajors method returns the negative number of majors (Department.java line 38)
+8. getDepartmentChair method is implemented incorrectly -- excess "" (Department.java line 46)
+9. dropPersonFromMajor method does not handle logic when number of majors is 0 (Department.java line 69)
+10. Department toString method is implemented incorrectly (Department.java line 113)
+11. retrieveDepartment method is returning the wrong status code (RouteController.java line 46-49)
+12. retrieveCourse method is returning the wrong status code when found (RouteController.java line 86)
+13. getMajorCtFromDept method is returning the negative number of majors (RouteController.java line 150)
+14. getMajorCtFromDept method is returning the wrong status code when dept not found (RouteController.java line 153)
+15. findCourseTime method is not returning the retrieved time slot (RouteController.java line 288-289) 
+
+    PMD error: Rule UnusedLocalVariable 
+    Violation Avoid unused local variables such as 'requestedCourse'. 	
+    Line 288
+
+16. handleException method is returning the wrong status code (RouteController.java line 546)
