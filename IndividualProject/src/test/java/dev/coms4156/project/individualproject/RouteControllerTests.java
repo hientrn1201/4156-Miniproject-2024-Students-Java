@@ -13,6 +13,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * Integration tests for the various endpoints in the RouteController.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class RouteControllerTests {
@@ -20,12 +23,21 @@ class RouteControllerTests {
   @Autowired
   private MockMvc mockMvc;
 
+  /**
+   * Sets up the test environment before each test.
+   * Initializes the test database with sample data.
+   */
   @BeforeEach
   void setUp() {
     // Initialize test data
     IndividualProjectApplication.overrideDatabase(new MyFileDatabase(0, "./data.txt"));
   }
 
+  /**
+   * Tests the index endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void indexTest() throws Exception {
     mockMvc.perform(get("/"))
@@ -33,6 +45,11 @@ class RouteControllerTests {
         .andExpect(content().string(containsString("Welcome")));
   }
 
+  /**
+   * Tests the retrieveDepartment endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void retrieveDepartmentTest() throws Exception {
     mockMvc.perform(get("/retrieveDept").param("deptCode", "COMS"))
@@ -43,6 +60,11 @@ class RouteControllerTests {
         .andExpect(status().isNotFound());
   }
 
+  /**
+   * Tests the retrieveCourse endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void retrieveCourseTest() throws Exception {
     mockMvc.perform(get("/retrieveCourse")
@@ -66,6 +88,11 @@ class RouteControllerTests {
         .andExpect(content().string("Department Not Found"));
   }
 
+  /**
+   * Tests the isCourseFull endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void isCourseFullTest() throws Exception {
     mockMvc.perform(get("/isCourseFull")
@@ -81,6 +108,11 @@ class RouteControllerTests {
         .andExpect(content().string("Course Not Found"));
   }
 
+  /**
+   * Tests the getMajorCountFromDept endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void getMajorCtFromDeptTest() throws Exception {
     mockMvc.perform(get("/getMajorCountFromDept").param("deptCode", "COMS"))
@@ -92,6 +124,11 @@ class RouteControllerTests {
         .andExpect(status().isNotFound());
   }
 
+  /**
+   * Tests the identifyDeptChair endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void identifyDeptChairTest() throws Exception {
     mockMvc.perform(get("/idDeptChair").param("deptCode", "COMS"))
@@ -103,6 +140,11 @@ class RouteControllerTests {
         .andExpect(status().isNotFound());
   }
 
+  /**
+   * Tests the findCourseLocation endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void findCourseLocationTest() throws Exception {
     mockMvc.perform(get("/findCourseLocation")
@@ -118,6 +160,11 @@ class RouteControllerTests {
         .andExpect(content().string("Course Not Found"));
   }
 
+  /**
+   * Tests the findCourseInstructor endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void findCourseInstructorTest() throws Exception {
     mockMvc.perform(get("/findCourseInstructor")
@@ -133,6 +180,11 @@ class RouteControllerTests {
         .andExpect(content().string("Course Not Found"));
   }
 
+  /**
+   * Tests the findCourseTime endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void findCourseTimeTest() throws Exception {
     mockMvc.perform(get("/findCourseTime")
@@ -148,6 +200,11 @@ class RouteControllerTests {
         .andExpect(content().string("Course Not Found"));
   }
 
+  /**
+   * Tests the addMajorToDept endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void addMajorToDeptTest() throws Exception {
     mockMvc.perform(patch("/addMajorToDept").param("deptCode", "COMS"))
@@ -163,6 +220,11 @@ class RouteControllerTests {
         .andExpect(content().string("Department Not Found"));
   }
 
+  /**
+   * Tests the removeMajorFromDept endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void removeMajorFromDeptTest() throws Exception {
     mockMvc.perform(patch("/removeMajorFromDept")
@@ -181,6 +243,11 @@ class RouteControllerTests {
         .andExpect(content().string("Department Not Found"));
   }
 
+  /**
+   * Tests the dropStudentFromCourse endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void dropStudentTest() throws Exception {
     mockMvc.perform(patch("/dropStudentFromCourse")
@@ -206,6 +273,11 @@ class RouteControllerTests {
 
   }
 
+  /**
+   * Tests the setEnrollmentCount endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void setEnrollmentCountTest() throws Exception {
     mockMvc.perform(patch("/setEnrollmentCount")
@@ -223,6 +295,11 @@ class RouteControllerTests {
         .andExpect(content().string("Attributed was updated successfully."));
   }
 
+  /**
+   * Tests the changeCourseTime endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void changeCourseTimeTest() throws Exception {
     mockMvc.perform(patch("/changeCourseTime")
@@ -246,6 +323,11 @@ class RouteControllerTests {
         .andExpect(content().string("The course meets at: 14:00-15:15."));
   }
 
+  /**
+   * Tests the changeCourseTeacher endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void changeCourseTeacherTest() throws Exception {
     mockMvc.perform(patch("/changeCourseTeacher")
@@ -268,6 +350,11 @@ class RouteControllerTests {
         .andExpect(content().string("Mike is the instructor for the course."));
   }
 
+  /**
+   * Tests the changeCourseLocation endpoint.
+   *
+   * @throws Exception if the test fails
+   */
   @Test
   void changeCourseLocationTest() throws Exception {
     mockMvc.perform(patch("/changeCourseLocation")
