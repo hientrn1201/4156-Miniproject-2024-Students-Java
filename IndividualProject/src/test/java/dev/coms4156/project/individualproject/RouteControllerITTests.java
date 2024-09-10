@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-class RouteControllerTests {
+class RouteControllerITTests {
 
   @Autowired
   private MockMvc mockMvc;
