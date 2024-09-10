@@ -280,6 +280,19 @@ class RouteControllerTests {
    */
   @Test
   void setEnrollmentCountTest() throws Exception {
+    // invalid count input
+    mockMvc.perform(patch("/setEnrollmentCount")
+            .param("deptCode", "COMS")
+            .param("courseCode", "1004")
+            .param("count", "20a"))
+        .andExpect(status().isBadRequest());
+
+    mockMvc.perform(patch("/setEnrollmentCount")
+            .param("deptCode", "COMS")
+            .param("courseCode", "1004")
+            .param("count", "-1"))
+        .andExpect(status().isBadRequest());
+
     mockMvc.perform(patch("/setEnrollmentCount")
             .param("deptCode", "COMS")
             .param("courseCode", "3")

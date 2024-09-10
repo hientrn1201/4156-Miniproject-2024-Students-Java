@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test;
  */
 class IndividualProjectApplicationTests {
 
-  IndividualProjectApplication app;
+  public IndividualProjectApplication app;
 
   /**
    * Sets up the test environment before each test method.
@@ -22,6 +23,11 @@ class IndividualProjectApplicationTests {
   void setUp() {
     app = new IndividualProjectApplication();
     IndividualProjectApplication.overrideDatabase(new MyFileDatabase(0, "./data.txt"));
+  }
+
+  @AfterEach
+  void tearDown() {
+    app.onTermination();
   }
 
   /**
