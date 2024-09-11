@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * This class represents a file-based database containing department mappings.
@@ -44,13 +45,24 @@ public class MyFileDatabase {
   public HashMap<String, Department> deSerializeObjectFromFile() {
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
       Object obj = in.readObject();
-      if (obj instanceof HashMap) {
-        return (HashMap<String, Department>) obj;
+      if (obj instanceof HashMap<?, ?> tempMap) {
+        HashMap<String, Department> checkedMap = new HashMap<>();
+
+        for (Map.Entry<?, ?> entry : tempMap.entrySet()) {
+          // Check if the key is a String and the value is a Department
+          if (entry.getKey() instanceof String && entry.getValue() instanceof Department) {
+            checkedMap.put((String) entry.getKey(), (Department) entry.getValue());
+          } else {
+            throw new IllegalArgumentException("Invalid map key or value type.");
+          }
+        }
+        return checkedMap;
       } else {
         throw new IllegalArgumentException("Invalid object type in file.");
       }
     } catch (IOException | ClassNotFoundException e) {
-      e.printStackTrace();
+      logger.severe("Error deserialize object from file.");
+      logger.severe(e.toString());
       return null;
     }
   }
@@ -64,7 +76,8 @@ public class MyFileDatabase {
       out.writeObject(departmentMapping);
       System.out.println("Object serialized successfully.");
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.severe("Error saving object to file.");
+      logger.severe(e.toString());
     }
   }
 
@@ -98,4 +111,7 @@ public class MyFileDatabase {
 
   /** The mapping of department names to Department objects. */
   private HashMap<String, Department> departmentMapping;
+
+  /** Logger instance for MyFileDatabase instance. */
+  private static final Logger logger = Logger.getLogger(MyFileDatabase.class.getName());
 }
