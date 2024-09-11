@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-class RouteControllerTests {
+class RouteControllerITTests {
 
   @Autowired
   private MockMvc mockMvc;
@@ -101,7 +101,7 @@ class RouteControllerTests {
         .andExpect(status().isOk())
         .andExpect(content().string("false"));
 
-    mockMvc.perform(get("/retrieveCourse")
+    mockMvc.perform(get("/isCourseFull")
             .param("deptCode", "COMS")
             .param("courseCode", "3"))
         .andExpect(status().isNotFound())
@@ -120,7 +120,7 @@ class RouteControllerTests {
         .andExpect(
             content().string("There are: 2700 majors in the department."));
 
-    mockMvc.perform(get("/retrieveDept").param("deptCode", "NA"))
+    mockMvc.perform(get("/getMajorCountFromDept").param("deptCode", "NA"))
         .andExpect(status().isNotFound());
   }
 
@@ -136,7 +136,7 @@ class RouteControllerTests {
         .andExpect(
             content().string(containsString("Luca Carloni")));
 
-    mockMvc.perform(get("/retrieveDept").param("deptCode", "NA"))
+    mockMvc.perform(get("/idDeptChair").param("deptCode", "NA"))
         .andExpect(status().isNotFound());
   }
 
@@ -153,7 +153,7 @@ class RouteControllerTests {
         .andExpect(status().isOk())
         .andExpect(content().string(containsString("417 IAB")));
 
-    mockMvc.perform(get("/retrieveCourse")
+    mockMvc.perform(get("/findCourseLocation")
             .param("deptCode", "COMS")
             .param("courseCode", "3"))
         .andExpect(status().isNotFound())
@@ -173,7 +173,7 @@ class RouteControllerTests {
         .andExpect(status().isOk())
         .andExpect(content().string("Adam Cannon is the instructor for the course."));
 
-    mockMvc.perform(get("/retrieveCourse")
+    mockMvc.perform(get("/findCourseInstructor")
             .param("deptCode", "COMS")
             .param("courseCode", "3"))
         .andExpect(status().isNotFound())
@@ -193,7 +193,7 @@ class RouteControllerTests {
         .andExpect(status().isOk())
         .andExpect(content().string("The course meets at: 11:40-12:55."));
 
-    mockMvc.perform(get("/retrieveCourse")
+    mockMvc.perform(get("/findCourseTime")
             .param("deptCode", "COMS")
             .param("courseCode", "3"))
         .andExpect(status().isNotFound())
@@ -280,6 +280,19 @@ class RouteControllerTests {
    */
   @Test
   void setEnrollmentCountTest() throws Exception {
+    // invalid count input
+    mockMvc.perform(patch("/setEnrollmentCount")
+            .param("deptCode", "COMS")
+            .param("courseCode", "1004")
+            .param("count", "20a"))
+        .andExpect(status().isBadRequest());
+
+    mockMvc.perform(patch("/setEnrollmentCount")
+            .param("deptCode", "COMS")
+            .param("courseCode", "1004")
+            .param("count", "-1"))
+        .andExpect(status().isBadRequest());
+
     mockMvc.perform(patch("/setEnrollmentCount")
             .param("deptCode", "COMS")
             .param("courseCode", "3")

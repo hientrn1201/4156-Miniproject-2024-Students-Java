@@ -19,3 +19,5 @@
     Line 288
 
 16. handleException method is returning the wrong status code (RouteController.java line 546)
+17. Call to 'printStackTrace()' should probably be replaced with more robust logging (MyFileDatabase.java line 67)
+18. Unchecked cast from Object to HashMap (MyFileDatabase.java line 49)

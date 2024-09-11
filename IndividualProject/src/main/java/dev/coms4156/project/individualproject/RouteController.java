@@ -407,6 +407,10 @@ public class RouteController {
   public ResponseEntity<?> setEnrollmentCount(@RequestParam(value = "deptCode") String deptCode,
                                               @RequestParam(value = "courseCode") int courseCode,
                                               @RequestParam(value = "count") int count) {
+    if (count < 0) {
+      return new ResponseEntity<>("Invalid Param: count.", HttpStatus.BAD_REQUEST);
+    }
+
     try {
       boolean doesCourseExists;
       doesCourseExists = retrieveCourse(deptCode, courseCode).getStatusCode() == HttpStatus.OK;
